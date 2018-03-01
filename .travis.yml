@@ -1,4 +1,5 @@
 script: ./download_and_setup.sh
+before_deploy: echo LICENSE > .gitignore
 deploy:
   provider: pages
   skip-cleanup: true
