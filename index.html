@@ -667,9 +667,7 @@ Note:
 			// - https://github.com/hakimel/reveal.js#configuration
 			// - https://github.com/hakimel/reveal.js#dependencies
 			var options = {
-
                 history: true,
-
                 dependencies: [
 					{ src: 'plugin/markdown/marked.js' },
 					{ src: 'plugin/markdown/markdown.js' },
@@ -681,10 +679,14 @@ Note:
                 options.showNotes = true; // for PDF export to include notes
             }
             Reveal.initialize(options);
-            document.onclick = function (event) {
-                Reveal.next();
-            };
-            [].forEach.call(document.getElementsByTagName('a'), a => a.target = '_blank')
+            document.addEventListener('ready', function(event) { // RevealJS finished rendering
+                [].forEach.call(document.getElementsByTagName('a'), a => a.target = '_blank')
+                document.onclick = function (event) {
+                    if (event.target.tagName.toLocaleLowerCase() != 'a') {
+                        Reveal.next()
+                    }
+                }
+            })
 		</script>
 	</body>
 </html>
